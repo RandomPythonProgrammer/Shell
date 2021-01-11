@@ -121,12 +121,12 @@ class Shell(cmd.Cmd):
     def do_rd(self, line):
         "Deletes directory"
         try:
-            os.rmdir(line)
+            shutil.rmtree(line)
 
             print(self.style + "Directory removed")
         except FileNotFoundError as e:
             try:
-                os.rmdir("\\" + line)
+                shutil.rmtree("\\" + line)
 
                 print(self.style + "Directory removed")
             except FileNotFoundError as e:
