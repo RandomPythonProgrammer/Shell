@@ -4,18 +4,18 @@ There are many errors that may occur that the system is unable to catch resultin
 
 Commands:
 
-dir: Shows the files in your current working directory
-cd: Changes the directory
-ren: Renames a file
-move: Moves a file
-moves: Moves all of the files in a directory
-zip: Zips a directory
-extract: Unzips a directory
-rd: Removes a directory
-mkdir: Makes a directory
-echo: Makes a file
-start: Runs an application
-help: Opens the help menu
-info: Information
-del: Deletes file
-exit: Exits
+dir: Shows the files in your current working directory \n
+cd: Changes the directory \n
+ren: Renames a file \n
+move: Moves a file \n
+moves: Moves all of the files in a directory \n
+zip: Zips a directory \n
+extract: Unzips a directory \n
+rd: Removes a directory \n
+mkdir: Makes a directory \n
+echo: Makes a file \n
+start: Runs an application \n
+help: Opens the help menu \n
+info: Information \n
+del: Deletes file \n
+exit: Exits \n
