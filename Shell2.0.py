@@ -7,7 +7,7 @@ from zipfile import ZipFile
 os.system("")
 
 
-class style():
+class style:
     YELLOW = '\033[33m'
     WHITE = '\033[37m'
     RESET = '\033[0m'
@@ -30,11 +30,11 @@ class Shell(cmd.Cmd):
         return line
 
     def do_dir(self, line):
-        "Show current working directory"
+        """Show current working directory"""
         print(self.style + "\n".join(os.listdir(self.current_directory)))
 
     def do_cd(self, line):
-        "Change directory"
+        """Change directory"""
         if line == "..":
             os.chdir("..")
             self.current_directory = os.getcwd()
@@ -52,15 +52,15 @@ class Shell(cmd.Cmd):
                     print(style.RESET, e)
 
     def do_del(self, line):
-        "Deletes file"
+        """Deletes file"""
         try:
             os.remove(line)
-            self.current_directory = os.getcwd()
+
             print(self.style + "File removed")
         except FileNotFoundError as e:
             try:
                 os.remove("\\" + line)
-                self.current_directory = os.getcwd()
+
                 print(self.style + "File removed")
             except FileNotFoundError as e:
                 print(style.RESET, e)
@@ -68,16 +68,16 @@ class Shell(cmd.Cmd):
                 print(style.RESET, e)
 
     def do_ren(self, line):
-        "Rename file"
+        """Rename file"""
         file, name = tuple(line.split(" "))
         try:
             os.rename(file, file.replace(os.path.basename(file), name))
-            self.current_directory = os.getcwd()
+
             print(self.style + "File renamed")
         except FileNotFoundError as e:
             try:
                 os.rename("\\" + file, "\\" + file.replace(os.path.basename(file), name))
-                self.current_directory = os.getcwd()
+
                 print(self.style + "File renamed")
             except FileNotFoundError as e:
                 print(style.RESET, e)
@@ -88,12 +88,12 @@ class Shell(cmd.Cmd):
         "Creates directory"
         try:
             os.mkdir(line)
-            self.current_directory = os.getcwd()
+
             print(self.style + "Directory created")
         except FileNotFoundError as e:
             try:
                 os.mkdir("\\" + line)
-                self.current_directory = os.getcwd()
+
                 print(self.style + "Directory created")
             except FileNotFoundError as e:
                 print(style.RESET, e)
@@ -105,13 +105,13 @@ class Shell(cmd.Cmd):
         try:
             with open(line, "x") as file:
                 pass
-            self.current_directory = os.getcwd()
+
             print(self.style + "File created")
         except FileNotFoundError as e:
             try:
                 with open("\\" + line, "x") as file:
                     pass
-                self.current_directory = os.getcwd()
+
                 print(self.style + "File created")
             except FileNotFoundError as e:
                 print(style.RESET, e)
@@ -122,12 +122,12 @@ class Shell(cmd.Cmd):
         "Deletes directory"
         try:
             os.rmdir(line)
-            self.current_directory = os.getcwd()
+
             print(self.style + "Directory removed")
         except FileNotFoundError as e:
             try:
                 os.rmdir("\\" + line)
-                self.current_directory = os.getcwd()
+
                 print(self.style + "Directory removed")
             except FileNotFoundError as e:
                 print(style.RESET, e)
@@ -139,12 +139,12 @@ class Shell(cmd.Cmd):
         start, end = tuple(line.split(" "))
         try:
             shutil.move(start, f"{end}\\{os.path.basename(start)}")
-            self.current_directory = os.getcwd()
+
             print(self.style + "File moved")
         except FileNotFoundError as e:
             try:
                 shutil.move("\\" + start, f"\\{end}\\{os.path.basename(start)}")
-                self.current_directory = os.getcwd()
+
                 print(self.style + "File moved")
             except FileNotFoundError as e:
                 print(style.RESET, e)
@@ -157,13 +157,13 @@ class Shell(cmd.Cmd):
         try:
             for file in os.listdir(start):
                 shutil.move(f"{start}\\{file}", f"{end}\\{file})")
-                self.current_directory = os.getcwd()
+
             print(self.style + "Files moved")
         except FileNotFoundError as e:
             try:
                 for file in os.listdir(start):
                     shutil.move(f"\\{start}\\{file}", f"\\{end}\\{file}")
-                    self.current_directory = os.getcwd()
+
                 print(self.style + "Files moved")
             except FileNotFoundError as e:
                 print(style.RESET, e)
@@ -174,12 +174,12 @@ class Shell(cmd.Cmd):
         "Runes file"
         try:
             subprocess.Popen(line)
-            self.current_directory = os.getcwd()
+
             print(self.style + "File started")
         except FileNotFoundError as e:
             try:
                 subprocess.Popen("\\" + line)
-                self.current_directory = os.getcwd()
+
                 print(self.style + "File started")
             except FileNotFoundError as e:
                 print(style.RESET, e)
@@ -199,16 +199,16 @@ class Shell(cmd.Cmd):
                 with ZipFile(f"{location}\\{filepath}.zip", "x") as zip_file:
                     for file in os.listdir(filepath):
                         zip_file.write(f"{filepath}\\{file}")
-                self.current_directory = os.getcwd()
+
                 print(self.style + "Files zipped")
             except (FileNotFoundError, OSError) as e:
                 try:
                     with ZipFile(f"\\{location}\\{filepath}.zip", "x") as zip_file:
                         for file in os.listdir(filepath):
                             zip_file.write(f"\\{filepath}\\{file}")
-                    self.current_directory = os.getcwd()
+
                     print(self.style + "Files zipped")
-                except (FileNotFoundError, OSErro) as e:
+                except (FileNotFoundError, OSError) as e:
                     try:
                         print(filepath)
                         file_ = filepath.split("\\")[-1]
@@ -216,7 +216,7 @@ class Shell(cmd.Cmd):
                         with ZipFile(f"{location}\\{file_}.zip", "x") as zip_file:
                             for file in os.listdir(filepath):
                                 zip_file.write(f"{filepath}\\{file}")
-                        self.current_directory = os.getcwd()
+
                     except FileNotFoundError as e:
                         print(style.RESET, e)
                     except OSError as e:
@@ -234,13 +234,13 @@ class Shell(cmd.Cmd):
         try:
             with ZipFile(file + ".zip") as zip_file:
                 zip_file.extractall(location)
-            self.current_directory = os.getcwd()
+
             print(self.style + "Files extracted")
         except FileNotFoundError as e:
             try:
                 with ZipFile(f"\\{file}.zip") as zip_file:
                     zip_file.extractall(location)
-                self.current_directory = os.getcwd()
+
                 print(self.style + "Files extracted")
             except FileNotFoundError as e:
                 print(style.RESET, e)
